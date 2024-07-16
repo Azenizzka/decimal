@@ -52,7 +52,8 @@ int s21_negate(s21_decimal value, s21_decimal *result) {
 }
 
 int s21_is_equal(s21_decimal value_1, s21_decimal valus_2) {
-  return memcmp(value_1.bits, valus_2.bits, sizeof(uint32_t) * 4) == 0;
+  return memcmp(value_1.bits, valus_2.bits, sizeof(uint32_t) * 4) == 0 &&
+         get_sign(value_1) == get_sign(valus_2);
 }
 
 int s21_is_not_equal(s21_decimal value_1, s21_decimal value_2) {
