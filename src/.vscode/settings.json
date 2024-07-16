@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "s21_decimal.h": "c",
+    "chrono": "c",
+    "functional": "c",
+    "stdio.h": "c",
+    "inttypes.h": "c",
+    "utils.h": "c",
+    "cmath": "c"
+  }
+}
