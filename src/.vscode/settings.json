@@ -6,6 +6,7 @@
     "stdio.h": "c",
     "inttypes.h": "c",
     "utils.h": "c",
-    "cmath": "c"
+    "cmath": "c",
+    "valarray": "c"
   }
 }

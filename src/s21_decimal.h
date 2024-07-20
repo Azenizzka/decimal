@@ -8,11 +8,14 @@
 #include <string.h>
 
 #define SIGN_BIT_POS 31
-// #define COEFF_MASK 0b00000000111111110000000000000000
 
 typedef struct {
   uint32_t bits[4];
 } s21_decimal;
+
+typedef struct {
+  uint32_t bits[8];
+} ldecimal;
 
 typedef enum {
   ARITHMETIC_OK,
@@ -20,6 +23,7 @@ typedef enum {
   TOO_SMALL,
   DIVISION_BY_ZERO
 } arithmetic_result;
+
 typedef enum { CONVERTER_OK, CONVERTER_ERROR } converter_result;
 
 typedef enum { PLUS = 1, MINUS = -1 } sign;
@@ -78,7 +82,7 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst);  // from int
 // TODO
 int s21_from_float_to_decimal(float src, s21_decimal *dst);  // from float
 
-// TESTME
+// TODO
 int s21_from_decimal_to_int(s21_decimal src, int *dst);  // to int
 
 // TODO

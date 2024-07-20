@@ -25,66 +25,26 @@ void run_tests() {
 }
 
 int main() {
-  // run_tests();
-
-  printf("\n\n");
-
   s21_decimal decimal_1 = {0};
   s21_decimal decimal_2 = {0};
   s21_decimal result = {0};
 
-  int res = 0;
+  decimal_1.bits[0] = 0b00000000000000000000000000000000;
+  decimal_1.bits[1] = 0b00000000000000000000000000000000;
+  decimal_1.bits[2] = 0b00000000000000000000000000001111;
 
-  // 3.1
-  // 1.5
-  // ========
-  // 4
+  decimal_2.bits[0] = 0b00000000000000000000000000000000;
+  decimal_2.bits[1] = 0b00000000000000000000000000000000;
+  decimal_2.bits[2] = 0b00000000000000000000000000000000;
 
-  // decimal_1.bits[2] = 0b0;
-  // decimal_1.bits[1] = 0b0;
-  // decimal_1.bits[0] = 0b01111;
-  // decimal_1.bits[3] = 0b00000000000000010000000000000000;
+  s21_add(decimal_1, decimal_2, &result);
 
-  // decimal_2.bits[2] = 0b0;
-  // decimal_2.bits[1] = 0b0;
-  // decimal_2.bits[0] = 0b11111;
-  // decimal_2.bits[3] = 0b00000000000000010000000000000000;
-
-  // 3.1
-  // 1.5
-  // ========
-  // 4
-
-  decimal_1.bits[2] = 0b0;
-  decimal_1.bits[1] = 0b0;
-  decimal_1.bits[0] = 0b11111;
-  decimal_1.bits[3] = 0b00000000000000110000000000000000;
-
-  decimal_2.bits[2] = 0b0;
-  decimal_2.bits[1] = 0b0;
-  decimal_2.bits[0] = 0b11111;
-  decimal_2.bits[3] = 0b00000000000000010000000000000000;
-
-  // s21_add(decimal_1, decimal_2, &result);
-
-  // printf("dec1: %d\n", decimal_1.bits[0]);
-  // printf("dec2: %d\n", decimal_2.bits[0]);
-  // printf("=========\n");
-  // printf("res:  %d\n", result.bits[0]);
-
-  // 1.5 / 1
-  // 7   / 0
-  //=======
-  // 8.5
-
-  // 1.5 /
-  // 0.7
-  //
-
-  int ret = s21_from_decimal_to_int(decimal_1, &res);
-  printf("res: %d\n", res);
-
-  // printf("ret: %d", ret);
+  print_decimal(decimal_1);
+  putchar('\n');
+  print_decimal(decimal_2);
+  putchar('\n');
+  print_decimal(result);
+  putchar('\n');
 
   return 0;
 }
