@@ -26,7 +26,7 @@ uint8_t get_bit(uint32_t value, uint8_t bit_pos) {
 }
 
 void set_bit(uint32_t *value, uint8_t bit, uint8_t state) {
-  *value = state ? (*value | 1 << bit) : (*value & 1 << ~bit);
+  *value = state ? (*value | (1 << bit)) : (*value & ~(1 << bit));
 }
 
 uint8_t get_dbit(s21_decimal value, uint8_t bit_pos) {
@@ -107,9 +107,7 @@ void lshift(ldecimal *value, uint8_t shift) {
   }
 }
 
-// TODO
 arithmetic_result mul_by_10(ldecimal *val) {
-  //
   ldecimal twice_ldecimal;
   ldecimal thrice_ldecimal;
   ldecimal result_ld;
