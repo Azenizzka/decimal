@@ -38,7 +38,8 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   print_ldecimal(lval_1);
   printf("\n=== after\n");
 
-  lshift(&lval_1, 1);
+  mul_by_10(&lval_1);
+
   print_ldecimal(lval_1);
   printf("\n\n\n\n");
 

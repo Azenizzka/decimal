@@ -70,6 +70,10 @@ void copy_decimal(s21_decimal src, s21_decimal *dst) {
   memcpy(dst->bits, src.bits, sizeof(uint32_t) * 4);
 }
 
+void copy_ldecimal(ldecimal src, ldecimal *dst) {
+  memcpy(dst->bits, src.bits, sizeof(uint32_t) * 8);
+}
+
 uint8_t word_add(uint32_t *result, uint32_t value_1, uint32_t value_2,
                  uint8_t carry) {
   *result = value_1 + value_2 + carry;
@@ -106,6 +110,22 @@ void lshift(ldecimal *value, uint8_t shift) {
 // TODO
 arithmetic_result mul_by_10(ldecimal *val) {
   //
+  ldecimal twice_ldecimal;
+  ldecimal thrice_ldecimal;
+  ldecimal result_ld;
+
+  copy_ldecimal(*val, &twice_ldecimal);
+  copy_ldecimal(*val, &thrice_ldecimal);
+
+  lshift(&twice_ldecimal, 1);
+  lshift(&thrice_ldecimal, 3);
+
+  arithmetic_result result_code =
+      simple_add(twice_ldecimal, thrice_ldecimal, &result_ld);
+
+  if (result_code == ARITHMETIC_OK) *val = result_ld;
+
+  return result_code;
 }
 
 // TODO
