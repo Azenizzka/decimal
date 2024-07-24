@@ -13,6 +13,8 @@ typedef struct {
   uint32_t bits[4];
 } s21_decimal;
 
+//
+
 typedef struct {
   uint32_t bits[8];
 } ldecimal;

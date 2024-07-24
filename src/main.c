@@ -29,22 +29,31 @@ int main() {
   s21_decimal decimal_2 = {0};
   s21_decimal result = {0};
 
-  decimal_1.bits[0] = 0b00000000000000000000000000000000;
-  decimal_1.bits[1] = 0b00000000000000000000000000000000;
-  decimal_1.bits[2] = 0b00000000000000000000000000001111;
+  decimal_1.bits[0] = 0b11000000000000000000000000000001;
+  decimal_1.bits[1] = 0b11000000000000000000000000000001;
+  decimal_1.bits[2] = 0b01000000000000000000000000000001;
 
   decimal_2.bits[0] = 0b00000000000000000000000000000000;
   decimal_2.bits[1] = 0b00000000000000000000000000000000;
   decimal_2.bits[2] = 0b00000000000000000000000000000000;
 
+  // decimal_1.bits[0] = 0b11111111111111111111111111111111;
+  // decimal_1.bits[1] = 0b11111111111111111111111111111111;
+  // decimal_1.bits[2] = 0b11111111111111111111111111111111;
+
+  // decimal_2.bits[0] = 0b11111111111111111111111111111111;
+  // decimal_2.bits[1] = 0b11111111111111111111111111111111;
+  // decimal_2.bits[2] = 0b11111111111111111111111111111111;
+
   s21_add(decimal_1, decimal_2, &result);
 
-  print_decimal(decimal_1);
-  putchar('\n');
-  print_decimal(decimal_2);
-  putchar('\n');
-  print_decimal(result);
-  putchar('\n');
+  // printf("\n\n");
+  // print_decimal(decimal_1);
+  // putchar('\n');
+  // print_decimal(decimal_2);
+  // putchar('\n');
+  // print_decimal(result);
+  // putchar('\n');
 
   return 0;
 }
