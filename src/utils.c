@@ -117,9 +117,12 @@ void dec_to_ldec(s21_decimal src, ldecimal *dst) {
 
 int8_t ldec_to_dec(ldecimal src, s21_decimal *dst) {
   for (uint8_t i = 3; i < 8; i++)
-    if (dst->bits[i] != 0) return -1;
+    if (src.bits[i] != 0) return -1;
 
-  memcpy(dst, &src, sizeof(uint32_t) * 3);
+  memcpy(dst->bits, src.bits, sizeof(uint32_t) * 3);
+  set_scale(dst, src.base_scale);
+
+  return 0;
 }
 
 void lshift(ldecimal *value, uint8_t shift) {
