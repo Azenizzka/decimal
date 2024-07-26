@@ -46,11 +46,7 @@ void str_to_dec(char *str, s21_decimal *dec) {
 
   if (!strchr(str, '.')) scale = 0;
 
-  // printf("\n\nscale: %d\n\n", scale);
-
   set_scale(dec, scale);
-
-  // print_decimal(*dec);
 }
 
 void assert_decimal(s21_decimal val_1, s21_decimal val_2,
@@ -77,9 +73,9 @@ START_TEST(tc_add_1) {
   s21_decimal expected = {0};
   s21_decimal res = {0};
 
-  str_to_dec("3", &val_1);
-  str_to_dec("2", &val_2);
-  str_to_dec("5", &expected);
+  str_to_dec("29.081", &val_1);
+  str_to_dec("37.919", &val_2);
+  str_to_dec("67", &expected);
 
   arithmetic_result ar_res = s21_add(val_1, val_2, &res);
 
