@@ -13,10 +13,9 @@ typedef struct {
   uint32_t bits[4];
 } s21_decimal;
 
-//
-
 typedef struct {
   uint32_t bits[8];
+  uint8_t base_scale;
 } ldecimal;
 
 typedef enum {
@@ -34,7 +33,7 @@ typedef enum { PLUS = 1, MINUS = -1 } sign;
 
 // arithmetic
 
-// TODO
+// TESTME
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 
 // TODO

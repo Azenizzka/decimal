@@ -1,6 +1,6 @@
 CC = gcc
 
-SRCMODULES = s21_decimal.c utils.c
+SRCMODULES = s21_decimal.c utils.c test_add.c
 OBJMODULES = $(SRCMODULES:.c=.o)
 
 CFLAGS = -Wall -Wextra -std=c11

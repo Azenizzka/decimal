@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <inttypes.h>
+#include <math.h>
 
 #include "s21_decimal.h"
 
@@ -32,12 +33,18 @@ arithmetic_result simple_add(ldecimal value_1, ldecimal value_2,
                              ldecimal *result);
 
 void dec_to_ldec(s21_decimal src, ldecimal *dst);
+int8_t ldec_to_dec(ldecimal src, s21_decimal *dst);
 
 void lshift(ldecimal *value, uint8_t shift);
 
 arithmetic_result mul_by_10(ldecimal *val);
 
-void normalize(ldecimal *min_sc_ldec, ldecimal *max_sc_ldec, uint8_t min_sc,
-               uint8_t max_sc);
+uint8_t normalize(ldecimal *value_1, ldecimal *value_2);
+
+uint8_t is_div_by_10(ldecimal val);
+
+void div_by_10(ldecimal *value);
+
+void cut_ldecimal(ldecimal *value);
 
 #endif

@@ -23,31 +23,43 @@ int s21_negate(s21_decimal value, s21_decimal *result) {
 }
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
-  ldecimal lval_1 = {0};
-  ldecimal lval_2 = {0};
+  ldecimal lvalue_1 = {0};
+  ldecimal lvalue_2 = {0};
+  ldecimal lresult = {0};
 
-  lshift(&lval_1, 1);
+  dec_to_ldec(value_1, &lvalue_1);
+  dec_to_ldec(value_2, &lvalue_2);
 
-  uint8_t min_sc = fmin(get_scale(value_1), get_scale(value_2));
-  uint8_t max_sc = fmax(get_scale(value_1), get_scale(value_2));
+  lvalue_1.base_scale = get_scale(value_1);
+  lvalue_2.base_scale = get_scale(value_2);
+  lresult.base_scale = normalize(&lvalue_1, &lvalue_2);
 
-  dec_to_ldec(value_1, &lval_1);
-  dec_to_ldec(value_2, &lval_2);
+  simple_add(lvalue_1, lvalue_2, &lresult);
+  cut_ldecimal(&lresult);
 
-  printf("\n\n\nbefore\n");
-  print_ldecimal(lval_1);
-  printf("\n=== after\n");
+  printf("\n\nexponent = [%d] || result:\n\n\n\n", lresult.base_scale);
+  print_ldecimal(lresult);
 
-  mul_by_10(&lval_1);
+  return ARITHMETIC_OK;
+}
 
-  print_ldecimal(lval_1);
-  printf("\n\n\n\n");
+int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
+  ldecimal lvalue_1 = {0};
+  ldecimal lvalue_2 = {0};
+  ldecimal lresult = {0};
 
-  if (get_scale(value_1) < get_scale(value_2)) {
-    normalize(&lval_1, &lval_2, min_sc, max_sc);
-  } else {
-    normalize(&lval_2, &lval_1, min_sc, max_sc);
-  }
+  dec_to_ldec(value_1, &lvalue_1);
+  dec_to_ldec(value_2, &lvalue_2);
+
+  lvalue_1.base_scale = get_scale(value_1);
+  lvalue_2.base_scale = get_scale(value_2);
+  lresult.base_scale = normalize(&lvalue_1, &lvalue_2);
+
+  simple_add(lvalue_1, lvalue_2, &lresult);
+  cut_ldecimal(&lresult);
+
+  printf("\n\nexponent = [%d] || result:\n\n\n\n", lresult.base_scale);
+  print_ldecimal(lresult);
 
   return ARITHMETIC_OK;
 }

@@ -7,6 +7,25 @@
     "inttypes.h": "c",
     "utils.h": "c",
     "cmath": "c",
-    "valarray": "c"
+    "valarray": "c",
+    "*.tcc": "c",
+    "streambuf": "c",
+    "limits.h": "c",
+    "stdlib.h": "c",
+    "string.h": "c",
+    "array": "c",
+    "hash_map": "c",
+    "deque": "c",
+    "forward_list": "c",
+    "list": "c",
+    "string": "c",
+    "unordered_map": "c",
+    "unordered_set": "c",
+    "vector": "c",
+    "string_view": "c",
+    "format": "c",
+    "initializer_list": "c",
+    "span": "c",
+    "text_encoding": "c"
   }
 }

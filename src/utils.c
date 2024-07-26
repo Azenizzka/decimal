@@ -8,17 +8,27 @@ void print_binary(uint32_t value) {
 }
 
 void print_decimal(s21_decimal value) {
+  puts("============DECIMAL=============\n");
+  printf("SCALE: %hhd\n\n", get_scale(value));
   for (uint8_t i = 0; i < 3; i++) {
+    printf("bits[%d]: ", i);
     print_binary(value.bits[i]);
     putchar('\n');
   }
+
+  puts("\n================================");
 }
 
 void print_ldecimal(ldecimal value) {
-  for (uint8_t i = 0; i < 8; i++) {
+  puts("==========LONG DECIMAL==========\n");
+  printf("BASE SCALE: %hhd\n\n", value.base_scale);
+  for (uint8_t i = 0; i < 3; i++) {
+    printf("bits[%d]: ", i);
     print_binary(value.bits[i]);
     putchar('\n');
   }
+
+  puts("\n================================");
 }
 
 uint8_t get_bit(uint32_t value, uint8_t bit_pos) {
@@ -94,13 +104,27 @@ arithmetic_result simple_add(ldecimal value_1, ldecimal value_2,
   return overflow ? TOO_LARGE : ARITHMETIC_OK;
 }
 
+arithmetic_result simple_sub(ldecimal value_1, ldecimal value_2,
+                             ldecimal *result) {
+  for (uint8_t i = 0; i < 8; i++)
+    word_add(&result->bits[i], value_1.bits[i], value_2.bits[i], 0);
+  return ARITHMETIC_OK;
+}
+
 void dec_to_ldec(s21_decimal src, ldecimal *dst) {
+  memcpy(dst, &src, sizeof(uint32_t) * 3);
+}
+
+int8_t ldec_to_dec(ldecimal src, s21_decimal *dst) {
+  for (uint8_t i = 3; i < 8; i++)
+    if (dst->bits[i] != 0) return -1;
+
   memcpy(dst, &src, sizeof(uint32_t) * 3);
 }
 
 void lshift(ldecimal *value, uint8_t shift) {
   for (uint8_t i = 0; i < shift; i++) {
-    for (int16_t bit = sizeof(ldecimal) * 8 - 1; bit > 0; bit--)
+    for (int16_t bit = sizeof(uint32_t) * 8 - 1; bit > 0; bit--)
       set_ldbit(value, bit, get_ldbit(*value, bit - 1));
 
     set_ldbit(value, 0, 0);
@@ -126,8 +150,44 @@ arithmetic_result mul_by_10(ldecimal *val) {
   return result_code;
 }
 
-// TODO
-void normalize(ldecimal *min_sc_ldec, ldecimal *max_sc_ldec, uint8_t min_sc,
-               uint8_t max_sc) {
-  //
+// testme
+void div_by_10(ldecimal *value) {
+  for (uint8_t i = 0; i < 8; i++) {
+    value->bits[i] = value->bits[i] / 10;
+  }
+}
+
+// TESTME
+uint8_t is_div_by_10(ldecimal val) {
+  for (uint8_t i = 0; i < 8; i++)
+    if (val.bits[i] % 10) return 0;
+
+  return 1;
+}
+
+// TESTME
+void cut_ldecimal(ldecimal *value) {
+  while (value->base_scale > 0 && is_div_by_10(*value)) {
+    value->base_scale--;
+    div_by_10(value);
+  }
+}
+
+uint8_t normalize(ldecimal *val_1, ldecimal *val_2) {
+  uint8_t max_scale = fmax(val_1->base_scale, val_2->base_scale);
+  uint8_t min_scale = fmin(val_1->base_scale, val_2->base_scale);
+  uint8_t scale_diff = max_scale - min_scale;
+
+  ldecimal *min_scale_ldecimal;
+
+  if (val_1->base_scale == min_scale)
+    min_scale_ldecimal = val_1;
+  else
+    min_scale_ldecimal = val_2;
+
+  for (uint8_t i = 0; i < scale_diff; i++) {
+    mul_by_10(min_scale_ldecimal);
+  }
+
+  return max_scale;
 }
